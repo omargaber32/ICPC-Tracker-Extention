@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICPC Tracker — Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">IC</div>
+      <div><h1>ICPC Tracker</h1><p>Dashboard</p></div>
+      <span class="phase-tag">v0.8</span>
+    </header>
+
+    <section class="panel">
+      <div class="section-title">
+        <div><p class="eyebrow">COLLECTION</p><h2>Results</h2></div>
+        <span class="status-pill" id="collection-state">Not collected</span>
+      </div>
+      <p class="muted">Results are saved on this device (only the tracked students' solved problems). <strong>Update</strong> reads only sheets that are missing, failed, or don't cover all students yet. <strong>Re-read everything</strong> fetches every sheet again. Sheets are read one at a time with a pause between them. <strong>Click any cell</strong> to see which problems were solved and mark it <span class="legend legend-done">Done</span> or <span class="legend legend-notdone">Not done</span>.</p>
+      <div class="actions">
+        <button class="btn primary" id="update-btn" type="button">Update results</button>
+        <button class="btn" id="reread-btn" type="button">Re-read everything</button>
+        <button class="btn" id="stop-btn" type="button" hidden>Stop after current sheet</button>
+        <button class="btn danger" id="clear-btn" type="button">Clear saved results</button>
+        <label class="toggle"><input type="checkbox" id="auto-toggle"> Update automatically when this page opens</label>
+      </div>
+      <p class="muted status-line" id="collection-message" role="status" aria-live="polite"></p>
+      <div class="summary-row">
+        <div class="stat"><span>Groups</span><strong id="stat-groups">0</strong></div>
+        <div class="stat"><span>Students</span><strong id="stat-students">0</strong></div>
+        <div class="stat"><span>Sheets</span><strong id="stat-sheets">0</strong></div>
+      </div>
+    </section>
+
+    <section class="panel" id="backup-panel">
+      <div class="section-title">
+        <div><p class="eyebrow">DATA</p><h2>Backup &amp; restore</h2></div>
+        <span class="count-pill" id="backup-count"></span>
+      </div>
+      <p class="muted">A backup is a JSON file with your <strong>groups, sheets and students</strong> (not collected results). Restore it after reinstalling the extension or on another computer.</p>
+      <div class="actions">
+        <button class="btn primary" id="backup-btn" type="button">Download backup</button>
+        <span class="muted" id="last-backup"></span>
+      </div>
+      <div class="actions restore-row">
+        <label class="btn file-btn">Restore from file…<input type="file" id="restore-file" accept=".json,application/json" hidden></label>
+      </div>
+      <div id="restore-preview" class="restore-preview" hidden>
+        <div id="restore-preview-body"></div>
+        <label class="radio"><input type="radio" name="restore-mode" value="merge" checked> <span><strong>Merge</strong> — add what's missing, keep everything I have now</span></label>
+        <label class="radio"><input type="radio" name="restore-mode" value="replace"> <span><strong>Replace</strong> — make my data exactly match the backup (a safety copy is downloaded first)</span></label>
+        <div class="actions"><button class="btn primary" id="restore-btn" type="button">Restore</button><button class="btn" id="restore-cancel" type="button">Cancel</button></div>
+      </div>
+      <p class="muted status-line" id="backup-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <div class="groups-toolbar" id="groups-toolbar" hidden>
+      <button class="btn small" id="collapse-all" type="button">Minimise all</button>
+      <button class="btn small" id="expand-all" type="button">Expand all</button>
+      <span class="muted">Drag the ⠿ handle, or use ↑ ↓, to reorder groups. Minimise a group with ▾.</span>
+      <span class="muted" id="groups-message" role="status" aria-live="polite"></span>
+    </div>
+    <div id="groups-root"></div>
+
+    <section class="panel">
+      <div class="section-title"><div><p class="eyebrow">INDIVIDUAL VIEW</p><h2>Student details</h2></div></div>
+      <div class="field"><label for="detail-student">Choose student</label><select id="detail-student"></select></div>
+      <div id="detail-content"></div>
+    </section>
+    <footer>Local-first · Read-only · Saved results stay on this device</footer>
+  </main>
+  <aside id="cell-drawer" class="drawer" aria-label="Cell details" hidden></aside>
+  <script src="../shared/common.js"></script>
+  <script src="state.js"></script>
+  <script src="collector.js"></script>
+  <script src="render.js"></script>
+  <script src="backup.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
