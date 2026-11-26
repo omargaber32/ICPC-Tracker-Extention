@@ -1,5 +1,4 @@
 # ICPC Tracker Extention
-# ICPC Tracker
 
 A Chrome extension (Manifest V3) that helps you monitor how your students are doing in Codeforces group contests. Instead of opening every contest, switching on "Show unofficial" and searching for each handle by hand, ICPC Tracker reads the standings for you and shows one progress table per group.
 
